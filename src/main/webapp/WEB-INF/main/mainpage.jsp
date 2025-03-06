@@ -18,6 +18,7 @@
      </style>
 </head>
 <body>
+<jsp:include page="../../layout/title.jsp"/>
 <div style="margin:30px 100px;width:500px;">
 	<h1  class="alert alert-danger">메인 페이지입니다</h1>
 </div>
