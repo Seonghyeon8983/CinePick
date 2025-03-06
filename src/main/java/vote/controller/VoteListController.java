@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class VoteListController {
-	@GetMapping("/votelist")
-	public String goVote() {
+	@GetMapping("votelist")
+	public String govoteMovie() {
 		return "vote/votelist";
 	}
 	
-	
 }
+

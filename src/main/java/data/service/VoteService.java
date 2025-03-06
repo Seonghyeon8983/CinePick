@@ -15,8 +15,8 @@ public class VoteService {
         voteMapper.insertVote(dto);
     }
 
-    public List<VoteDto> getVotesByMovieId(int movieId) {
-        return voteMapper.getVotesByMovieId(movieId);
+    public List<VoteDto> getVotesByPollId(int pollId) {
+        return voteMapper.getVotesByPollId(pollId);
     }
 
     public void updateVote(VoteDto dto) {

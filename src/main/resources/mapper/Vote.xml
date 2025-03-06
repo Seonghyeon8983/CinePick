@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.VoteMapper">
-    <insert id="insertVote" parameterType="VoteDto">
-        INSERT INTO CinePick_Votes (user_id, movie_id, vote_value)
-        VALUES (#{userId}, #{movieId}, #{voteValue})
+ <!-- Insert a new vote -->
+    <insert id="insertVote" parameterType="data.dto.VoteDto">
+        INSERT INTO CinePick_Votes (poll_id, user_id, voted_movie_id)
+        VALUES (#{pollId}, #{userId}, #{votedMovieId})
     </insert>
-    
-    <select id="getVotesByMovieId" parameterType="int" resultType="VoteDto">
-        SELECT * FROM CinePick_Votes WHERE movie_id = #{movieId}
+
+    <!-- Retrieve votes by poll ID -->
+    <select id="getVotesByPollId" parameterType="int" resultType="data.dto.VoteDto">
+        SELECT * FROM CinePick_Votes WHERE poll_id = #{pollId}
     </select>
-    
-    <update id="updateVote" parameterType="VoteDto">
-        UPDATE CinePick_Votes SET vote_value = #{voteValue}
+
+    <!-- Update an existing vote -->
+    <update id="updateVote" parameterType="data.dto.VoteDto">
+        UPDATE CinePick_Votes
+        SET voted_movie_id = #{votedMovieId},
+            updated_at = CURRENT_TIMESTAMP
         WHERE vote_id = #{voteId}
+          AND user_id = #{userId}
+          AND poll_id = #{pollId}
     </update>
-    
+
+    <!-- Delete a specific vote by ID -->
     <delete id="deleteVote" parameterType="int">
         DELETE FROM CinePick_Votes WHERE vote_id = #{voteId}
     </delete>

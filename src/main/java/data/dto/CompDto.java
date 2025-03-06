@@ -6,12 +6,13 @@ import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 
-@Alias("VoteDto")
+@Alias("CompDto")
 @Data
-public class VoteDto {
-    private int voteId;
+public class CompDto {
     private int pollId;
-    private int userId;
-    private int votedMovieId;
+    private int movie1Id;
+    private int movie2Id;
     private Timestamp createdAt;
+    private Timestamp updatedAt;
+
 }
