@@ -19,15 +19,15 @@ public class BoardService {
         return boardMapper.getAllBoards();
     }
 
-    public BoardDto getBoardById(int postId) {
-        return boardMapper.getBoardById(postId);
+    public BoardDto getBoardById(int post_id) {
+        return boardMapper.getBoardById(post_id);
     }
 
     public void updateBoard(BoardDto dto) {
         boardMapper.updateBoard(dto);
     }
 
-    public void deleteBoard(int postId) {
-        boardMapper.deleteBoard(postId);
+    public void deleteBoard(int post_id) {
+        boardMapper.deleteBoard(post_id);
     }
 }

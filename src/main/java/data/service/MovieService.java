@@ -19,15 +19,15 @@ public class MovieService {
         return movieMapper.getAllMovies();
     }
 
-    public MovieDto getMovieById(int movieId) {
-        return movieMapper.getMovieById(movieId);
+    public MovieDto getMovieById(int movie_id) {
+        return movieMapper.getMovieById(movie_id);
     }
 
     public void updateMovie(MovieDto dto) {
         movieMapper.updateMovie(dto);
     }
 
-    public void deleteMovie(int movieId) {
-        movieMapper.deleteMovie(movieId);
+    public void deleteMovie(int movie_Id) {
+        movieMapper.deleteMovie(movie_Id);
     }
 }

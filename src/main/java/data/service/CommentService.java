@@ -15,15 +15,15 @@ public class CommentService {
         commentMapper.insertComment(dto);
     }
 
-    public List<CommentDto> getCommentsByReviewId(int reviewId) {
-        return commentMapper.getCommentsByReviewId(reviewId);
+    public List<CommentDto> getCommentsByReviewId(int review_id) {
+        return commentMapper.getCommentsByReviewId(review_id);
     }
 
     public void updateComment(CommentDto dto) {
         commentMapper.updateComment(dto);
     }
 
-    public void deleteComment(int commentId) {
-        commentMapper.deleteComment(commentId);
+    public void deleteComment(int comment_id) {
+        commentMapper.deleteComment(comment_id);
     }
 }

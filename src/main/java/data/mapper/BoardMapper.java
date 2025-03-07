@@ -10,7 +10,7 @@ import data.dto.BoardDto;
 public interface BoardMapper {
     public void insertBoard(BoardDto dto);
     public List<BoardDto> getAllBoards();
-    public BoardDto getBoardById(int postId);
+    public BoardDto getBoardById(int post_id);
     public void updateBoard(BoardDto dto);
-    public void deleteBoard(int postId);
+    public void deleteBoard(int post_id);
 }

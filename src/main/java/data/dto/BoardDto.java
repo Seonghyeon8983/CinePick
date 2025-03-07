@@ -9,10 +9,10 @@ import lombok.Data;
 @Alias("BoardDto")
 @Data
 public class BoardDto {
-    private int postId;
-    private int userId;
+    private int post_id;
+    private int user_id;
     private String title;
     private String content;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Timestamp created_at;
+    private Timestamp updated_at;
 }

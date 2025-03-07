@@ -60,6 +60,7 @@
     </style>
 </head>
 <body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <jsp:include page="../../layout/title.jsp"/>
     <div class="main-container">
@@ -68,6 +69,7 @@
             <input type="text" class="search-input" placeholder="영화 검색...">
         </div>
 
+	<div id="pollList"></div>
         <!-- 콘텐츠 섹션 -->
         <div class="content-container">
             <!-- 박스오피스 기반 투표 목록 -->
@@ -140,38 +142,31 @@
             </div>
         </div>
     </div>
+    
+<div id="comparisonList"></div>
 
-    <script>
-        $(document).ready(function() {
-            // 영화 1 선택 시 이미지 변경
-            $('#movie1Select').change(function() {
-                var selectedMovie = $(this).val();
-                var imageUrl = getImageForMovie(selectedMovie);
-                $('#selectedMovie1Image').attr('src', imageUrl);
+
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: './api/comparison-polls',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            var pollListHtml = '<ul>';
+            $.each(data, function(index, poll) {
+                pollListHtml += '<li>' + poll.pollName + ' (ID: ' + poll.pollId + ')</li>';
             });
+            pollListHtml += '</ul>';
+            $('#pollList').html(pollListHtml);
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX 요청 실패:', status, error);
+        }
+    });
+});
 
-            // 영화 2 선택 시 이미지 변경
-            $('#movie2Select').change(function() {
-                var selectedMovie = $(this).val();
-                var imageUrl = getImageForMovie(selectedMovie);
-                $('#selectedMovie2Image').attr('src', imageUrl);
-            });
-
-            // 영화 선택에 따른 이미지 URL 반환 함수 (가상의 URL)
-            function getImageForMovie(movie) {
-                switch(movie) {
-                    case 'movie1':
-                        return 'https://example.com/movie1.jpg';
-                    case 'movie2':
-                        return 'https://example.com/movie2.jpg';
-                    case 'movie3':
-                        return 'https://example.com/movie3.jpg';
-                    default:
-                        return '';
-                }
-            }
-        });
-    </script>
+</script>
 
     
 </body>

@@ -9,14 +9,14 @@ import lombok.Data;
 @Alias("MovieDto")
 @Data
 public class MovieDto {
-    private int movieId;
+    private int movie_id;
     private String title;
     private String description;
-    private Timestamp releaseDate;
+    private Timestamp release_date;
     private int duration;
     private String genre;
     private String director;
     private String cast;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Timestamp created_at;
+    private Timestamp updated_at;
 }

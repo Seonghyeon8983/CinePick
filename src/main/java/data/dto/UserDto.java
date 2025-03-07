@@ -11,10 +11,10 @@ import lombok.Data;
 @Alias("UserDto")
 @Data
 public class UserDto {
-    private int userId;
+    private int user_id;
     private String username;
     private String email;
-    private String passwordHash;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private String password_hash;
+    private Timestamp created_at;
+    private Timestamp updated_at;
 }

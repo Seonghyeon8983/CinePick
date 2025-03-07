@@ -9,11 +9,11 @@ import lombok.Data;
 @Alias("ReviewDto")
 @Data
 public class ReviewDto {
-    private int reviewId;
-    private int userId;
-    private int movieId;
+    private int review_id;
+    private int user_id;
+    private int movie_id;
     private int rating;
     private String content;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Timestamp created_at;
+    private Timestamp updated_at;
 }

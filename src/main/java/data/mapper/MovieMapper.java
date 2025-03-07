@@ -10,7 +10,7 @@ import data.dto.MovieDto;
 public interface MovieMapper {
     public void insertMovie(MovieDto dto);
     public List<MovieDto> getAllMovies();
-    public MovieDto getMovieById(int movieId);
+    public MovieDto getMovieById(int movie_id);
     public void updateMovie(MovieDto dto);
-    public void deleteMovie(int movieId);
+    public void deleteMovie(int movie_id);
 }

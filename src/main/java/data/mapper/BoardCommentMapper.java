@@ -9,7 +9,7 @@ import data.dto.BoardCommentDto;
 @Mapper
 public interface BoardCommentMapper {
     public void insertBoardComment(BoardCommentDto dto);
-    public List<BoardCommentDto> getCommentsByPostId(int postId);
+    public List<BoardCommentDto> getCommentsByPostId(int post_id);
     public void updateBoardComment(BoardCommentDto dto);
-    public void deleteBoardComment(int commentId);
+    public void deleteBoardComment(int comment_id);
 }

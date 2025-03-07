@@ -9,8 +9,8 @@ import data.dto.ReviewDto;
 @Mapper
 public interface ReviewMapper {
     public void insertReview(ReviewDto dto);
-    public List<ReviewDto> getReviewsByMovieId(int movieId);
-    public ReviewDto getReviewById(int reviewId);
+    public List<ReviewDto> getReviewsByMovieId(int movie_id);
+    public ReviewDto getReviewById(int review_id);
     public void updateReview(ReviewDto dto);
-    public void deleteReview(int reviewId);
+    public void deleteReview(int review_id);
 }

@@ -15,19 +15,19 @@ public class ReviewService {
         reviewMapper.insertReview(dto);
     }
 
-    public List<ReviewDto> getReviewsByMovieId(int movieId) {
-        return reviewMapper.getReviewsByMovieId(movieId);
+    public List<ReviewDto> getReviewsByMovieId(int movie_id) {
+        return reviewMapper.getReviewsByMovieId(movie_id);
     }
 
-    public ReviewDto getReviewById(int reviewId) {
-        return reviewMapper.getReviewById(reviewId);
+    public ReviewDto getReviewById(int review_id) {
+        return reviewMapper.getReviewById(review_id);
     }
 
     public void updateReview(ReviewDto dto) {
         reviewMapper.updateReview(dto);
     }
 
-    public void deleteReview(int reviewId) {
-        reviewMapper.deleteReview(reviewId);
+    public void deleteReview(int review_id) {
+        reviewMapper.deleteReview(review_id);
     }
 }

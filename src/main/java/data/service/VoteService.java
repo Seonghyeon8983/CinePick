@@ -15,15 +15,15 @@ public class VoteService {
         voteMapper.insertVote(dto);
     }
 
-    public List<VoteDto> getVotesByPollId(int pollId) {
-        return voteMapper.getVotesByPollId(pollId);
+    public List<VoteDto> getVotesByPollId(int poll_id) {
+        return voteMapper.getVotesByPollId(poll_id);
     }
 
     public void updateVote(VoteDto dto) {
         voteMapper.updateVote(dto);
     }
 
-    public void deleteVote(int voteId) {
-        voteMapper.deleteVote(voteId);
+    public void deleteVote(int vote_id) {
+        voteMapper.deleteVote(vote_id);
     }
 }

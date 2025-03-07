@@ -19,15 +19,15 @@ public class UserService {
         return userMapper.getAllUsers();
     }
 
-    public UserDto getUserById(int userId) {
-        return userMapper.getUserById(userId);
+    public UserDto getUserById(int user_id) {
+        return userMapper.getUserById(user_id);
     }
 
     public void updateUser(UserDto dto) {
         userMapper.updateUser(dto);
     }
 
-    public void deleteUser(int userId) {
-        userMapper.deleteUser(userId);
+    public void deleteUser(int user_id) {
+        userMapper.deleteUser(user_id);
     }
 }

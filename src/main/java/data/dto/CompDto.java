@@ -9,10 +9,10 @@ import lombok.Data;
 @Alias("CompDto")
 @Data
 public class CompDto {
-    private int pollId;
-    private int movie1Id;
-    private int movie2Id;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-
+    private int poll_id;
+    private int movie_1_id;
+    private int movie_2_id;
+    private Timestamp created_at;
+    private Timestamp updated_at;
+    private String pollName;
 }

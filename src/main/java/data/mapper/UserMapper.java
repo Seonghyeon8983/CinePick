@@ -10,7 +10,7 @@ import data.dto.UserDto;
 public interface UserMapper {
     public void insertUser(UserDto dto);
     public List<UserDto> getAllUsers();
-    public UserDto getUserById(int userId);
+    public UserDto getUserById(int user_id);
     public void updateUser(UserDto dto);
-    public void deleteUser(int userId);
+    public void deleteUser(int user_id);
 }

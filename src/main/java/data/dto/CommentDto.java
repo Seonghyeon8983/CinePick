@@ -9,10 +9,10 @@ import lombok.Data;
 @Alias("CommentDto")
 @Data
 public class CommentDto {
-    private int commentId;
-    private int reviewId;
-    private int userId;
+    private int comment_id;
+    private int review_id;
+    private int user_id;
     private String content;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Timestamp created_at;
+    private Timestamp updated_at;
 }

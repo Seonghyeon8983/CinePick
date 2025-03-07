@@ -7,7 +7,7 @@
         VALUES (#{movie1Id}, #{movie2Id})
     </insert>
 
-    <select id="getAllComp" resultType="data.dto.CompDto">
+    <select id="getAllComp" resultType="CompDto">
         SELECT * FROM CinePick_Comparison_Polls
     </select>
 

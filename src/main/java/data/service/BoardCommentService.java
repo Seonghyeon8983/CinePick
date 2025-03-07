@@ -15,15 +15,15 @@ public class BoardCommentService {
         boardCommentMapper.insertBoardComment(dto);
     }
 
-    public List<BoardCommentDto> getCommentsByPostId(int postId) {
-        return boardCommentMapper.getCommentsByPostId(postId);
+    public List<BoardCommentDto> getCommentsByPostId(int post_id) {
+        return boardCommentMapper.getCommentsByPostId(post_id);
     }
 
     public void updateBoardComment(BoardCommentDto dto) {
         boardCommentMapper.updateBoardComment(dto);
     }
 
-    public void deleteBoardComment(int commentId) {
-        boardCommentMapper.deleteBoardComment(commentId);
+    public void deleteBoardComment(int comment_id) {
+        boardCommentMapper.deleteBoardComment(comment_id);
     }
 }
