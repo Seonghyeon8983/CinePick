@@ -46,7 +46,25 @@ public class CompService {
         }
         return polls;
     }
+    // 새로운 비교 투표 생성 (영화 ID 두 개로 투표 생성)
+    public boolean createComparisonPoll(int movie1Id, int movie2Id) {
+        // 두 영화가 존재하는지 확인
+        MovieDto movie1 = movieMapper.getMovieById(movie1Id);
+        MovieDto movie2 = movieMapper.getMovieById(movie2Id);
 
+        if (movie1 != null && movie2 != null) {
+            // 두 영화가 존재하면 투표 생성
+            CompDto newPoll = new CompDto();
+            newPoll.setMovie_1_id(movie1.getMovie_id());
+            newPoll.setMovie_2_id(movie2.getMovie_id());
+            newPoll.setPollName(movie1.getTitle() + " vs " + movie2.getTitle() + "  투표");
 
-    
+            // DB에 새로운 투표 저장
+            insertComparisonPoll(newPoll);
+            return true;
+        } else {
+            // 영화가 없으면 투표를 만들 수 없음
+            return false;
+        }
+    }
 }
