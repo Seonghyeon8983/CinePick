@@ -77,9 +77,13 @@
     }
 
     .movie-thumbnail-title {
+    	width: 160px;
         font-weight: bold;
         font-size: 18pt;
         margin-top: 10px;
+        white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
     }
 
 	.btn-prev, .btn-next {
