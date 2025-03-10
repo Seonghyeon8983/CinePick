@@ -1,0 +1,14 @@
+package data.mapper;
+
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import data.dto.CompDto;
+
+@Mapper
+public interface ComparisonPollMapper {
+    void insertComparisonPoll(ComparisonPollDto dto);
+    List<ComparisonPollDto> getAllComparisonPolls();
+    ComparisonPollDto getComparisonPollById(int pollId);
+    void updateComparisonPoll(ComparisonPollDto dto);
+    void deleteComparisonPoll(int pollId);
+}

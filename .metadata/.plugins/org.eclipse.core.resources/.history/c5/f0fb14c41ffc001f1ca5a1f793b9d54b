@@ -1,0 +1,54 @@
+//package vote.controller;
+//
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.GetMapping;
+//
+//
+//@Controller
+//public class VoteMovieController {
+//	@GetMapping("votemovie")
+//	public String govoteMovie() {
+//		return "vote/votemovie";
+//	}
+//	
+//}
+package vote.controller;
+package vote.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import data.dto.MovieDto;
+import data.service.MovieService;
+
+@Controller
+public class VoteMovieController {
+
+    private final MovieService movieService;
+
+    @Autowired
+    public VoteMovieController(MovieService movieService) {
+        this.movieService = movieService;
+    }
+
+    @GetMapping("/votemovie")
+    public String voteMovie(@RequestParam(value = "id") int id, // 해당 요청의 id 값
+                            @RequestParam(value = "movie1id") int movie1id,
+                            @RequestParam(value = "movie2id") int movie2id,
+                            Model model) {
+
+        // movie1id와 movie2id로 영화 데이터를 가져오기
+        MovieDto movie1 = movieService.getMovieById(movie1id);
+        MovieDto movie2 = movieService.getMovieById(movie2id);
+
+        // Model에 데이터 추가
+        model.addAttribute("id", id);  // 요청 파라미터 id
+        model.addAttribute("movie1", movie1);  // 첫 번째 영화
+        model.addAttribute("movie2", movie2);  // 두 번째 영화
+
+        return "votemovie";  // 반환할 JSP 뷰 이름 (votemovie.jsp)
+    }
+}

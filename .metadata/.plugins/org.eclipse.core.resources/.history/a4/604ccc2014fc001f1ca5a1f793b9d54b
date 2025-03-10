@@ -1,0 +1,168 @@
+//package vote.controller;
+//
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.GetMapping;
+//
+//
+//@Controller
+//public class VoteMovieController {
+//	@GetMapping("votemovie")
+//	public String govoteMovie() {
+//		return "vote/votemovie";
+//	}
+//	
+//}
+package vote.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import data.dto.MovieDto;
+import data.dto.VoteDto;
+
+import data.service.CompService;
+import data.service.MovieService;
+import data.service.VoteService;
+
+@RestController
+public class VoteMovieController {
+
+    private final MovieService movieService;
+    private final VoteService voteService;
+    private final CompService compService;
+
+    @Autowired
+    public VoteMovieController(MovieService movieService, VoteService voteService, CompService compService) {
+        this.movieService = movieService;
+        this.voteService = voteService;
+        this.compService = compService;
+    }
+
+    @PostMapping("/getMovieInfo")
+    public MovieInfoResponse getMovieInfo(@RequestBody MovieInfoRequest request) {
+        MovieDto movie1 = movieService.getMovieById(request.getMovie1Id());
+        MovieDto movie2 = movieService.getMovieById(request.getMovie2Id());
+
+        return new MovieInfoResponse(movie1, movie2);
+    }
+
+   
+
+    @PostMapping("/getVoteResults")
+    public VoteResultResponse getVoteResults(@RequestBody VoteRequest request) {
+        List<VoteDto> votes = voteService.getVotesByPollId(request.getPollId());
+        
+        int movie1Votes = (int) votes.stream().filter(v -> v.getVoted_movie_id() == request.getMovie1Id()).count();
+        int movie2Votes = (int) votes.stream().filter(v -> v.getVoted_movie_id() == request.getMovie2Id()).count();
+
+        MovieDto movie1 = movieService.getMovieById(request.getMovie1Id());
+        MovieDto movie2 = movieService.getMovieById(request.getMovie2Id());
+
+        return new VoteResultResponse(movie1Votes, movie2Votes, movie1.getTitle(), movie2.getTitle());
+    }
+}
+
+// 요청 데이터 클래스
+class MovieInfoRequest {
+    private int movie1Id;
+    private int movie2Id;
+
+    public int getMovie1Id() {
+        return movie1Id;
+    }
+
+    public void setMovie1Id(int movie1Id) {
+        this.movie1Id = movie1Id;
+    }
+
+    public int getMovie2Id() {
+        return movie2Id;
+    }
+
+    public void setMovie2Id(int movie2Id) {
+        this.movie2Id = movie2Id;
+    }
+}
+
+// 응답 데이터 클래스
+class MovieInfoResponse {
+    private MovieDto movie1;
+    private MovieDto movie2;
+
+    public MovieInfoResponse(MovieDto movie1, MovieDto movie2) {
+        this.movie1 = movie1;
+        this.movie2 = movie2;
+    }
+
+    public MovieDto getMovie1() {
+        return movie1;
+    }
+
+    public MovieDto getMovie2() {
+        return movie2;
+    }
+}
+
+// 투표 요청 데이터 클래스
+class VoteRequest {
+    private int pollId;
+    private int votedMovieId;
+    private int movie1Id;
+    private int movie2Id;
+
+    public int getPollId() {
+        return pollId;
+    }
+
+    public void setPollId(int pollId) {
+        this.pollId = pollId;
+    }
+
+    public int getVotedMovieId() {
+        return votedMovieId;
+    }
+
+    public void setVotedMovieId(int votedMovieId) {
+        this.votedMovieId = votedMovieId;
+    }
+
+    public int getMovie1Id() {
+        return movie1Id;
+    }
+
+    public void setMovie1Id(int movie1Id) {
+        this.movie1Id = movie1Id;
+    }
+
+    public int getMovie2Id() {
+        return movie2Id;
+    }
+
+    public void setMovie2Id(int movie2Id) {
+        this.movie2Id = movie2Id;
+    }
+}
+
+// 투표 결과 응답 데이터 클래스
+class VoteResultResponse {
+    private int movie1Votes;
+    private int movie2Votes;
+    private String movie1Title;
+    private String movie2Title;
+
+    public VoteResultResponse(int movie1Votes, int movie2Votes, String movie1Title, String movie2Title) {
+        this.movie1Votes = movie1Votes;
+        this.movie2Votes = movie2Votes;
+        this.movie1Title = movie1Title;
+        this.movie2Title = movie2Title;
+    }
+
+    public int getMovie1Votes() { return movie1Votes; }
+    public int getMovie2Votes() { return movie2Votes; }
+    public String getMovie1Title() { return movie1Title; }
+    public String getMovie2Title() { return movie2Title; }
+}

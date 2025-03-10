@@ -1,0 +1,9 @@
+package data.mapper;
+
+public class BoardCommentMapper {
+
+	public BoardCommentMapper() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

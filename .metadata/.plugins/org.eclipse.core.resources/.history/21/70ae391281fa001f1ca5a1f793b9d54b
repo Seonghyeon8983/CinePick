@@ -1,0 +1,40 @@
+package vote.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import data.service.VoteService;
+import data.service.MovieService;
+import data.dto.MovieDto;
+import data.dto.VoteDto;
+import lombok.AllArgsConstructor;
+import java.util.List;
+
+@Controller
+@AllArgsConstructor
+public class VoteListController {
+    
+    private final VoteService voteService;
+    private final MovieService movieService;
+
+    @GetMapping("/votelist")
+    public String goVote(Model model) {
+        List<MovieDto> movies = movieService.getAllMovies();
+        List<VoteDto> votes = voteService.getVotesByMovieId(0); // 0 is a placeholder, adjust as needed
+        
+        model.addAttribute("movies", movies);
+        model.addAttribute("votes", votes);
+        return "vote/votelist";
+    }
+
+    @PostMapping("/vote/create")
+    public String createVote(@RequestParam("movie1") int movie1Id, 
+                             @RequestParam("movie2") int movie2Id) {
+        VoteDto newVote = new VoteDto();
+        // Set properties of newVote
+        voteService.insertVote(newVote);
+        return "redirect:/votelist";
+    }
+}

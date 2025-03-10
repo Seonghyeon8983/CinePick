@@ -1,0 +1,10 @@
+package data.mapper;
+
+@Mapper
+public interface MovieMapper {
+    public void insertMovie(MovieDto dto);
+    public List<MovieDto> getAllMovies();
+    public MovieDto getMovieById(int movieId);
+    public void updateMovie(MovieDto dto);
+    public void deleteMovie(int movieId);
+}

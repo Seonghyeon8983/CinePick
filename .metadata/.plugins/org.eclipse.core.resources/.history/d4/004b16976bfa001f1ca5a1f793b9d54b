@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.BoardMapper">
+    <insert id="insertBoard" parameterType="BoardDto">
+        INSERT INTO CinePick_Boards (user_id, title, content)
+        VALUES (#{userId}, #{title}, #{content})
+    </insert>
+    
+    <select id="getAllBoards" resultType="BoardDto">
+        SELECT * FROM CinePick_Boards
+    </select>
+    
+    <select id="getBoardById" parameterType="int" resultType="BoardDto">
+        SELECT * FROM CinePick_Boards WHERE post_id = #{postId}
+    </select>
+    
+    <update id="updateBoard" parameterType="BoardDto">
+        UPDATE CinePick_Boards 
+        SET title = #{title}, content = #{content}, updated_at = CURRENT_TIMESTAMP
+        WHERE post_id = #{postId}
+    </update>
+    
+    <delete id="deleteBoard" parameterType="int">
+        DELETE FROM CinePick_Boards WHERE post_id = #{postId}
+    </delete>
+</mapper>

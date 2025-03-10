@@ -138,35 +138,36 @@ button {
 <script>
 let myChart = null;
 
-function showResults(movie1Votes, movie2Votes) {
-  document.getElementById('vote-form-container').style.display = 'none';
-  document.getElementById('results-container').style.display = 'block';
+function showResults(movie1Votes, movie2Votes, movie1Title, movie2Title) {
+	  document.getElementById('vote-form-container').style.display = 'none';
+	  document.getElementById('results-container').style.display = 'block';
 
-  const ctx = document.getElementById('vote-chart').getContext('2d');
-  
-  if (myChart) {
-    myChart.destroy();
-  }
+	  const ctx = document.getElementById('vote-chart').getContext('2d');
+	  
+	  if (myChart) {
+	    myChart.destroy();
+	  }
 
-  myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ['마블', '어벤져스'],
-      datasets: [{
-        data: [movie1Votes, movie2Votes],
-        backgroundColor: ['#FF6384', '#36A2EB']
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      title: {
-        display: true,
-        text: '영화 투표 결과'
-      }
-    }
-  });
-}
+	  myChart = new Chart(ctx, {
+	    type: 'pie',
+	    data: {
+	      labels: [movie1Title, movie2Title], // 영화 이름으로 라벨 설정
+	      datasets: [{
+	        data: [movie1Votes, movie2Votes],
+	        backgroundColor: ['#FF6384', '#36A2EB']
+	      }]
+	    },
+	    options: {
+	      responsive: true,
+	      maintainAspectRatio: false,
+	      title: {
+	        display: true,
+	        text: '영화 투표 결과'
+	      }
+	    }
+	  });
+	}
+
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('vote-form').addEventListener('submit', function(e) {
@@ -191,6 +192,47 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('vote-form-container').style.display = 'block';
   });
 });
+
+
+
+
+//URL 파라미터에서 movie1id, movie2id 가져오기
+const urlParams = new URLSearchParams(window.location.search);
+const movie1Id = urlParams.get('movie1id');
+const movie2Id = urlParams.get('movie2id');
+
+// AJAX 요청을 통해 영화 정보 가져오기
+fetch('/getMovieInfo', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    movie1Id: movie1Id,
+    movie2Id: movie2Id,
+  }),
+})
+.then(response => response.json())
+.then(data => {
+  // 영화 정보를 페이지에 표시
+  document.getElementById('movie1-title').innerText = data.movie1.title;
+  document.getElementById('movie1-plot').innerText = data.movie1.description;
+  document.getElementById('vote-movie1-title').innerText = data.movie1.title;
+
+  document.getElementById('movie2-title').innerText = data.movie2.title;
+  document.getElementById('movie2-plot').innerText = data.movie2.description;
+  document.getElementById('vote-movie2-title').innerText = data.movie2.title;
+
+  // 이미지 URL 설정 (이미지 URL은 실제 데이터에 따라 설정해야 함)
+  document.querySelector('img[alt="Movie 1"]').src = 'movie1_image_url'; // 실제 이미지 URL로 변경
+  document.querySelector('img[alt="Movie 2"]').src = 'movie2_image_url'; // 실제 이미지 URL로 변경
+});
+
+
+
+
+
+
 </script>
 </body>
 </html>

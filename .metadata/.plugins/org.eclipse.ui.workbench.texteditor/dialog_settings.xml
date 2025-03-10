@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="true"/>
+		<list key="findhistory">
+			<item value="myChart"/>
+			<item value="getVoteResults"/>
+			<item value="vote-button"/>
+			<item value="view-results"/>
+			<item value="movie1"/>
+			<item value="view"/>
+			<item value="movie1Title"/>
+			<item value="movie2_"/>
+			<item value="vote-movie1-title"/>
+			<item value="image"/>
+			<item value="GET"/>
+			<item value="boxOfficePolls"/>
+			<item value="&lt;div id=&quot;pollList&quot;&gt;&lt;/div&gt;"/>
+			<item value="영화 1"/>
+			<item value="e"/>
+		</list>
+	</section>
+</section>

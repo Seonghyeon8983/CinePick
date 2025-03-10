@@ -1,0 +1,9 @@
+package data.service;
+
+public class MovieService {
+
+	public MovieService() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

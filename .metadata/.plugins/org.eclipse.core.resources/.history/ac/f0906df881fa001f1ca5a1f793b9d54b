@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.CompMapper">
+
+    <!-- Insert a new comparison poll -->
+    <insert id="insertComp" parameterType="data.dto.CompDto">
+        INSERT INTO CinePick_Comparison_Polls (movie_1_id, movie_2_id)
+        VALUES (#{movie1Id}, #{movie2Id})
+    </insert>
+
+    <!-- Retrieve all comparison polls -->
+    <select id="getAllComp" resultType="data.dto.CompDto">
+        SELECT * FROM CinePick_Comparison_Polls
+    </select>
+
+    <!-- Retrieve a specific comparison poll by ID -->
+    <select id="getComp" parameterType="int" resultType="data.dto.CompDto">
+        SELECT * FROM CinePick_Comparison_Polls WHERE poll_id = #{pollId}
+    </select>
+
+    <!-- Update an existing comparison poll -->
+    <update id="updateComp" parameterType="data.dto.CompDto">
+        UPDATE CinePick_Comparison_Polls
+        SET movie_1_id = #{movie1Id},
+            movie_2_id = #{movie2Id},
+            updated_at = CURRENT_TIMESTAMP
+        WHERE poll_id = #{pollId}
+    </update>
+
+    <!-- Delete a specific comparison poll by ID -->
+    <delete id="deleteCompl" parameterType="int">
+        DELETE FROM CinePick_Comparison_Polls WHERE poll_id = #{pollId}
+    </delete>
+
+</mapper>
