@@ -1,0 +1,5 @@
+package vote.controller;
+
+public class VoteMovieController {
+
+}

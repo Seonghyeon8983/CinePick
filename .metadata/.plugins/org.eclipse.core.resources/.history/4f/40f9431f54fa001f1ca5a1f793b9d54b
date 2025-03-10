@@ -1,0 +1,195 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Movie Voting</title>
+<style>
+.main-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+.content-container {
+  display: flex;
+  justify-content: space-between;
+}
+.movies-container, .vote-container {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.movie-info {
+  display: flex;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+.movie-details {
+  margin-left: 20px;
+}
+img {
+  width: 150px;
+  height: auto;
+}
+#vote-form {
+  display: flex;
+  flex-direction: column;
+}
+.vote-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.vote-option label {
+  display: flex;
+  align-items: center;
+}
+.vote-option input[type="radio"] {
+  margin-right: 10px;
+}
+button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#view-results {
+  margin-top: 20px;
+  background-color: #008CBA;
+  width: 100%;
+}
+.vote-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.chart-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+#vote-chart {
+  width: 100%;
+  height: 300px;
+}
+</style>
+</head>
+<body>
+<jsp:include page="../../layout/title.jsp"/>
+<div class="main-container">
+  <div class="content-container">
+    <div class="movies-container">
+      <div class="movie-info">
+        <img src="movie1_image_url" alt="Movie 1">
+        <div class="movie-details">
+          <h2 id="movie1-title"></h2>
+          <p id="movie1-plot"></p>
+        </div>
+      </div>
+      <div class="movie-info">
+        <img src="movie2_image_url" alt="Movie 2">
+        <div class="movie-details">
+          <h2 id="movie2-title"></h2>
+          <p id="movie2-plot"></p>
+        </div>
+      </div>
+    </div>
+  <div class="vote-container">
+      <div id="vote-form-container">
+        <form id="vote-form">
+          <div class="vote-option">
+            <label>
+              <input type="radio" name="movie" value="movie1">
+              <span id="vote-movie1-title">마블</span>
+            </label>
+          </div>
+          <div class="vote-option">
+            <label>
+              <input type="radio" name="movie" value="movie2">
+              <span id="vote-movie2-title">어벤져스</span>
+            </label>
+          </div>
+          <div class="vote-button">
+            <button id="vote-button" type="submit">투표</button>
+          </div>
+        </form>
+        <button id="view-results">결과 먼저 보기</button>
+      </div>
+      <div id="results-container" style="display:none;">
+        <div class="chart-container">
+          <canvas id="vote-chart"></canvas>
+        </div>
+        <button id="back-to-vote">다시 투표하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let myChart = null;
+
+function showResults(movie1Votes, movie2Votes) {
+  document.getElementById('vote-form-container').style.display = 'none';
+  document.getElementById('results-container').style.display = 'block';
+
+  const ctx = document.getElementById('vote-chart').getContext('2d');
+  
+  if (myChart) {
+    myChart.destroy();
+  }
+
+  myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['마블', '어벤져스'],
+      datasets: [{
+        data: [movie1Votes, movie2Votes],
+        backgroundColor: ['#FF6384', '#36A2EB']
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      title: {
+        display: true,
+        text: '영화 투표 결과'
+      }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('vote-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const selectedMovie = document.querySelector('input[name="movie"]:checked').value;
+    // 여기서 실제로는 서버에 투표를 전송하고 결과를 받아와야 합니다.
+    // 지금은 임시로 랜덤한 결과를 생성합니다.
+    const movie1Votes = Math.floor(Math.random() * 100);
+    const movie2Votes = 100 - movie1Votes;
+    showResults(movie1Votes, movie2Votes);
+  });
+
+  document.getElementById('view-results').addEventListener('click', function() {
+    // 여기서도 실제로는 서버에서 현재 투표 결과를 가져와야 합니다.
+    const movie1Votes = Math.floor(Math.random() * 100);
+    const movie2Votes = 100 - movie1Votes;
+    showResults(movie1Votes, movie2Votes);
+  });
+
+  document.getElementById('back-to-vote').addEventListener('click', function() {
+    document.getElementById('results-container').style.display = 'none';
+    document.getElementById('vote-form-container').style.display = 'block';
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Movie Voting</title>
+<style>
+.main-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+.content-container {
+  display: flex;
+  justify-content: space-between;
+}
+.movies-container, .vote-container {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.movie-info {
+  display: flex;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+.movie-details {
+  margin-left: 20px;
+}
+img {
+  width: 150px;
+  height: auto;
+}
+#vote-form {
+  display: flex;
+  flex-direction: column;
+}
+.vote-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.vote-option label {
+  display: flex;
+  align-items: center;
+}
+.vote-option input[type="radio"] {
+  margin-right: 10px;
+}
+button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#view-results {
+  margin-top: 20px;
+  background-color: #008CBA;
+  width: 100%;
+}
+.vote-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.chart-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+#vote-chart {
+  width: 100%;
+  height: 300px;
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<jsp:include page="../../layout/title.jsp"/>
+<div class="main-container">
+  <div class="content-container">
+    <div class="movies-container">
+      <div class="movie-info">
+        <img src="movie1_image_url" alt="Movie 1">
+        <div class="movie-details">
+          <h2 id="movie1-title"></h2>
+          <p id="movie1-plot"></p>
+        </div>
+      </div>
+      <div class="movie-info">
+        <img src="movie2_image_url" alt="Movie 2">
+        <div class="movie-details">
+          <h2 id="movie2-title"></h2>
+          <p id="movie2-plot"></p>
+        </div>
+      </div>
+    </div>
+  <div class="vote-container">
+      <div id="vote-form-container">
+        <form id="vote-form">
+          <div class="vote-option">
+            <label>
+              <input type="radio" name="movie" value="movie1">
+              <span id="vote-movie1-title">마블</span>
+            </label>
+          </div>
+          <div class="vote-option">
+            <label>
+              <input type="radio" name="movie" value="movie2">
+              <span id="vote-movie2-title">어벤져스</span>
+            </label>
+          </div>
+          <div class="vote-button">
+            <button id="vote-button" type="submit">투표</button>
+          </div>
+        </form>
+        <button id="view-results">결과 먼저 보기</button>
+      </div>
+      <div id="results-container" style="display:none;">
+        <div class="chart-container">
+          <canvas id="vote-chart"></canvas>
+        </div>
+        <button id="back-to-vote">다시 투표하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let myChart = null;
+
+function showResults(movie1Votes, movie2Votes, movie1Title, movie2Title) {
+	  document.getElementById('vote-form-container').style.display = 'none';
+	  document.getElementById('results-container').style.display = 'block';
+
+	  const ctx = document.getElementById('vote-chart').getContext('2d');
+	  
+	  if (myChart) {
+	    myChart.destroy();
+	  }
+
+	  myChart = new Chart(ctx, {
+	    type: 'pie',
+	    data: {
+	      labels: [movie1Title, movie2Title], // 영화 이름으로 라벨 설정
+	      datasets: [{
+	        data: [movie1Votes, movie2Votes],
+	        backgroundColor: ['#FF6384', '#36A2EB']
+	      }]
+	    },
+	    options: {
+	      responsive: true,
+	      maintainAspectRatio: false,
+	      title: {
+	        display: true,
+	        text: '영화 투표 결과'
+	      }
+	    }
+	  });
+	}
+
+document.addEventListener('DOMContentLoaded', function() {
+	  // URL 파라미터에서 pollId, movie1Id, movie2Id 가져오기
+	  const urlParams = new URLSearchParams(window.location.search);
+	  const pollId = urlParams.get('id');
+	  const movie1Id = urlParams.get('movie1id');
+	  const movie2Id = urlParams.get('movie2id');
+
+	  // AJAX 요청을 통해 영화 정보 가져오기
+	  fetch('/getMovieInfo', {
+	    method: 'POST',
+	    headers: {
+	      'Content-Type': 'application/json',
+	    },
+	    body: JSON.stringify({
+	      movie1Id: movie1Id,
+	      movie2Id: movie2Id,
+	    }),
+	  })
+	  .then(response => response.json())
+	  .then(data => {
+	    // 영화 정보를 페이지에 표시
+	    document.getElementById('movie1-title').innerText = data.movie1.title;
+	    document.getElementById('movie1-plot').innerText = data.movie1.description;
+	    document.getElementById('vote-movie1-title').innerText = data.movie1.title;
+
+	    document.getElementById('movie2-title').innerText = data.movie2.title;
+	    document.getElementById('movie2-plot').innerText = data.movie2.description;
+	    document.getElementById('vote-movie2-title').innerText = data.movie2.title;
+
+	    // 이미지 URL 설정 (이미지 URL은 실제 데이터에 따라 설정해야 함)
+	    document.querySelector('img[alt="Movie 1"]').src = 'movie1_image_url'; // 실제 이미지 URL로 변경
+	    document.querySelector('img[alt="Movie 2"]').src = 'movie2_image_url'; // 실제 이미지 URL로 변경
+
+	    // 투표 버튼 클릭 이벤트
+	    document.getElementById('vote-form').addEventListener('submit', function(e) {
+	      e.preventDefault();
+	      const selectedMovie = document.querySelector('input[name="movie"]:checked').value;
+
+	      fetch('/castVote', {
+	        method: 'POST',
+	        headers: {
+	          'Content-Type': 'application/json',
+	        },
+	        body: JSON.stringify({
+	          pollId: pollId,
+	          votedMovieId: selectedMovie === 'movie1' ? movie1Id : movie2Id,
+	        }),
+	      })
+	      .then(response => response.json())
+	      .then(resultData => {
+	        // 투표 결과를 차트에 반영하며 영화 이름 전달
+	        showResults(resultData.movie1Votes, resultData.movie2Votes, data.movie1.title, data.movie2.title);
+	      });
+	    });
+
+	    // 결과 보기 버튼 클릭 이벤트
+	   // 결과 보기 버튼 클릭 이벤트
+document.getElementById('view-results').addEventListener('click', function() {
+  fetch('/getVoteResults', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      pollId: pollId,
+      movie1Id: movie1Id,
+      movie2Id: movie2Id,
+    }),
+  })
+  .then(response => response.json())
+  .then(resultData => {
+    showResults(resultData.movie1Votes, resultData.movie2Votes, data.movie1.title, data.movie2.title);
+  });
+});
+
+
+
+
+
+</script>
+</body>
+</html>

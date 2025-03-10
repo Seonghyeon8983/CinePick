@@ -1,0 +1,12 @@
+package data.dto;
+
+import java.sql.Timestamp;
+
+public class CompDto {
+    private int pollId;
+    private int movie1Id;
+    private int movie2Id;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+
+}

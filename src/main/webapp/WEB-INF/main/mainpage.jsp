@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +31,6 @@
         flex: 1;
     }
 
-    /* 썸네일 전체 컨테이너 */
     .movie-thumbnail-container {
         width: 1200px;
         height: 400px;
@@ -40,18 +41,17 @@
         justify-content: center;
         align-items: center;
         padding: 10px;
-        position: relative; /* 버튼 위치 고정 */
-        overflow: hidden; /* 넘치는 썸네일 숨김 */
+        position: relative;
+        overflow: hidden;
     }
 
-    /* 썸네일들을 감싸는 래퍼 */
     .movie-thumbnail-wrapper {
         display: flex;
         gap: 20px;
         overflow-x: auto;
         scroll-behavior: smooth;
         white-space: nowrap;
-        width: 960px; /* 컨테이너 크기에 맞춤 */
+        width: 960px;
     }
 
     /* 개별 썸네일 */
@@ -67,7 +67,7 @@
         align-items: center;
         padding: 10px;
         text-align: center;
-        flex-shrink: 0; /* 크기 유지 */
+        flex-shrink: 0;
     }
 
     .movie-thumbnail img {
@@ -77,18 +77,21 @@
     }
 
     .movie-thumbnail-title {
+    	width: 160px;
         font-weight: bold;
         font-size: 18pt;
         margin-top: 10px;
+        white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
     }
 
-    /* 좌우 버튼 */
 	.btn-prev, .btn-next {
 	    position: absolute;
 	    top: 50%;
 	    transform: translateY(-50%);
 	    border: none;
-	    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+	    background-color: rgba(0, 0, 0, 0.5);
 	    color: white;
 	    font-size: 24pt;
 	    cursor: pointer;
@@ -98,22 +101,27 @@
 	    justify-content: center;
 	    align-items: center;
 	    border-radius: 5px;
-	    z-index: 10; /* 썸네일 위로 */
+	    z-index: 10;
 	}
 	
-	/* 버튼 위치 조정 (컨테이너 내부로 조정) */
-	.btn-prev { left: 10px; }  
-	.btn-next { right: 10px; }
+	.btn-prev { 
+		left: 10px; 
+	}
+	  
+	.btn-next { 
+		right: 10px; 
+	}
 	
 	.btn-prev:hover, .btn-next:hover {
 	    background-color: rgba(0, 0, 0, 0.7);
 	}
 	
 	.containers_wrapper {
+		width: 1230px;
         background-color: #f0f0f0;
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
 	}
 	
@@ -127,8 +135,8 @@
         justify-content: center;
         align-items: center;
         padding: 10px;
-        position: relative; /* 버튼 위치 고정 */
-        overflow: hidden; /* 넘치는 썸네일 숨김 */
+        position: relative;
+        overflow: hidden;
 	}
 
 	.vote-container-wapper, 
@@ -149,12 +157,15 @@
 	.vote-container-wapper .title, 
 	.recommand-container-wapper .title{
         font-size: 20pt;
+        white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
 	}
 	
 	.vote-container-wapper .btn-more, 
 	.recommand-container-wapper .btn-more{
 	    border: none;
-	    background-color: rgba(0, 0, 0, 0); /* 반투명 배경 */
+	    background-color: rgba(0, 0, 0, 0);
 	    color: #838383;
 	    font-size: 20px;
 	    cursor: pointer;
@@ -173,68 +184,81 @@
 
 <div class="container">
     <div class="movie-thumbnail-container">
-        <button class="btn-prev">&lt;</button>
-        <div class="movie-thumbnail-wrapper">
-            <div class="movie-thumbnail">
-                <img src="images/01.png">
-                <div class="movie-thumbnail-title">Movie 1</div>
+    <button class="btn-prev">&lt;</button>
+    <div class="movie-thumbnail-wrapper">
+        <c:forEach var="movie" items="${movieList}">
+            <div class="movie-thumbnail" onclick="location.href='movieinfopage?id=${movie.movie_id}'">
+                <img src="/images/${movie.title}.jpeg" onerror="this.onerror=null; this.src='/images/01.png';">
+                <div class="movie-thumbnail-title">${movie.title}</div>
             </div>
-            <div class="movie-thumbnail">
-                <img src="images/02.png">
-                <div class="movie-thumbnail-title">Movie 2</div>
-            </div>
-            <div class="movie-thumbnail">
-                <img src="images/03.png">
-                <div class="movie-thumbnail-title">Movie 3</div>
-            </div>
-            <div class="movie-thumbnail">
-                <img src="images/04.png">
-                <div class="movie-thumbnail-title">Movie 4</div>
-            </div>
-            <div class="movie-thumbnail">
-                <img src="images/05.png">
-                <div class="movie-thumbnail-title">Movie 5</div>
-            </div>
-            <div class="movie-thumbnail">
-                <img src="images/06.png">
-                <div class="movie-thumbnail-title">Movie 6</div>
-            </div>
-        </div>
-        <button class="btn-next">&gt;</button>
+        </c:forEach>
     </div>
+    <button class="btn-next">&gt;</button>
+</div>
 </div>
 
 <div class="containers_wrapper">
 	<div class="vote-container">
 		<div class="vote-container-wapper">
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<button class="btn-more">>> 더보기</button>
+			<div class="title">영화 추천</div>
+			<br>
+			<c:if test="${fn:length(boardList) <= 4}">
+			    <c:forEach var="board" items="${boardList}" varStatus="status">
+			        <div class="title">
+			            <a href="/postpage?id=${board.post_id}" style="text-decoration: none; color: inherit;">
+			                [${board.movieTitle}] ${board.title}
+			            </a>
+			        </div>
+			    </c:forEach>
+			    
+			    <c:forEach begin="${fn:length(boardList)}" end="3" varStatus="status">
+			        <div class="title">&emsp;</div>
+			    </c:forEach>
+			</c:if>
+			
+			<c:if test="${fn:length(boardList) > 4}">
+			    <c:forEach var="board" items="${boardList}" varStatus="status">
+			        <c:if test="${status.index < 4}">
+			            <div class="title">
+			                <a href="/postpage?id=${board.post_id}" style="text-decoration: none; color: inherit;">
+			                    [${board.movieTitle}] ${board.title}
+			                </a>
+			            </div>
+			        </c:if>
+			    </c:forEach>
+			</c:if>
+
+			<a href="/boardpage">
+	        	<button type="button" class="btn-more">>> 더보기</button>
+	    	</a>
 		</div>
 	</div>
 
 	<div class="recommand-container">
 		<div class="recommand-container-wapper">
+			<div class="title">영화 투표</div>
+			<br>
 			<div class="title">aaa</div>
 			<div class="title">aaa</div>
 			<div class="title">aaa</div>
 			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<button class="btn-more">>> 더보기</button>
+			<a href="/boardpage">
+	        	<button type="button" class="btn-more">>> 더보기</button>
+	    	</a>
 		</div>
 	</div>
 	
 	<div class="vote-container">
 		<div class="vote-container-wapper">
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<button class="btn-more">>> 더보기</button>
+			<div class="title">영화 예매</div>
+			<br>
+			<div class="title">&emsp;영화 선택</div>
+			<div class="title">&emsp;영화관 선택</div>
+			<div class="title">&emsp;상영시간 선택</div>
+			<div class="title">&emsp;</div>
+			<a href="/">
+	        	<button type="button" class="btn-more"></button>
+	    	</a>
 		</div>
 	</div>
 </div>

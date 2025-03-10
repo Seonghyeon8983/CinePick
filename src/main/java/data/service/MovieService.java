@@ -2,6 +2,7 @@ package data.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+
 import data.dto.MovieDto;
 import data.mapper.MovieMapper;
 import lombok.AllArgsConstructor;
@@ -30,4 +31,9 @@ public class MovieService {
     public void deleteMovie(int movie_Id) {
         movieMapper.deleteMovie(movie_Id);
     }
+    
+    public MovieDto getMovieByTitle(String title) {
+        return movieMapper.getMovieByTitle(title);
+    }
+    
 }

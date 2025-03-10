@@ -25,4 +25,11 @@
     <delete id="deleteMovie" parameterType="int">
         DELETE FROM CinePick_Movies WHERE movie_id = #{movieId}
     </delete>
+    
+    <select id="getMovieByTitle" resultType="data.dto.MovieDto">
+        SELECT movie_id AS movieId, title, poster
+        FROM CinePick_Movies
+        WHERE title LIKE #{title}
+        LIMIT 1
+    </select>
 </mapper>

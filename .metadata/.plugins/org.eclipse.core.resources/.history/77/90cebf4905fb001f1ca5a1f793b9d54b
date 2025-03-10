@@ -1,0 +1,54 @@
+package data.service;
+
+import java.util.List;
+import org.springframework.stereotype.Service;
+import data.dto.CompDto;
+import data.dto.MovieDto;
+import data.mapper.CompMapper;
+import data.mapper.MovieMapper;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+@Service
+//@AllArgsConstructor
+@RequiredArgsConstructor
+public class CompService {
+    private final CompMapper compMapper;
+    private final MovieMapper movieMapper;
+    
+    public void insertComparisonPoll(CompDto dto) {
+    	compMapper.insertComp(dto);
+    }
+
+    public List<CompDto> getAllComparisonPolls() {
+        return compMapper.getAllComp();
+    }
+
+    public CompDto getComparisonPollById(int pollId) {
+        return compMapper.getCompById(pollId);
+    }
+
+    public void updateComparisonPoll(CompDto dto) {
+    	compMapper.updateComp(dto);
+    }
+
+    public void deleteComparisonPoll(int pollId) {
+    	compMapper.deleteComp(pollId);
+    }
+    public List<CompDto> getAllCompNames() {
+        List<CompDto> polls = compMapper.getAllComp();
+        for (CompDto poll : polls) {
+            if (poll != null) {
+                MovieDto movie1 = movieMapper.getMovieById(poll.getMovie1Id());
+                MovieDto movie2 = movieMapper.getMovieById(poll.getMovie2Id());
+                if (movie1 != null && movie2 != null) {
+                    poll.setPollName(movie1.getTitle() + " vs " + movie2.getTitle());
+                }
+            }
+        }
+        return polls;
+    }
+
+
+    
+}

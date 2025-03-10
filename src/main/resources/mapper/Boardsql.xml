@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.BoardMapper">
-    <insert id="insertReview" parameterType="ReviewDto">
-        INSERT INTO CinePick_Reviews (user_id, movie_id, rating, content)
-        VALUES (#{userId}, #{movieId}, #{rating}, #{content})
+    <select id="getAllBoards" resultType="data.dto.BoardDto">
+        SELECT * FROM CinePick_Boards
+    </select>
+    
+    <insert id="insertBoard" parameterType="data.dto.BoardDto">
+        INSERT INTO CinePick_Boards (user_id, title, content, created_at, updated_at, movie_id)
+        VALUES (1, #{title}, #{content}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3)
     </insert>
     
-    <select id="getReviewsByMovieId" parameterType="int" resultType="ReviewDto">
-        SELECT * FROM CinePick_Reviews WHERE movie_id = #{movieId}
+    <select id="getBoardById" parameterType="int" resultType="data.dto.BoardDto">
+        SELECT post_id, user_id, movie_id, title, content, created_at, updated_at 
+        FROM CinePick_Boards 
+        WHERE post_id = #{postId}
     </select>
     
-    <select id="getReviewById" parameterType="int" resultType="ReviewDto">
-        SELECT * FROM CinePick_Reviews WHERE review_id = #{reviewId}
+    <select id="getMovieById" parameterType="int" resultType="data.dto.MovieDto">
+        SELECT * FROM movie WHERE movie_id = #{movieId};
     </select>
     
-    <update id="updateReview" parameterType="ReviewDto">
-        UPDATE CinePick_Reviews 
-        SET rating = #{rating}, content = #{content}, updated_at = CURRENT_TIMESTAMP
-        WHERE review_id = #{reviewId}
+    <update id="updateBoard" parameterType="data.dto.BoardDto">
+        UPDATE CinePick_Boards 
+        SET title = #{title}, content = #{content}, updated_at = CURRENT_TIMESTAMP
+        WHERE post_id = #{postId}
     </update>
     
-    <delete id="deleteReview" parameterType="int">
-        DELETE FROM CinePick_Reviews WHERE review_id = #{reviewId}
+    <delete id="deleteBoard" parameterType="int">
+        DELETE FROM CinePick_Boards WHERE post_id = #{postId}
     </delete>
 </mapper>
