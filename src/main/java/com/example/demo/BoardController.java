@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ public class BoardController {
 	@GetMapping("/boardpage")
 	public String goBoard(Model model) {
 	    List<BoardDto> boardList = boardService.getAllBoards();
+	    Collections.reverse(boardList); // 리스트를 역순으로 정렬
 	    model.addAttribute("boardList", boardList);
 	    return "board/boardpage";
 	}
@@ -48,7 +50,6 @@ public class BoardController {
     @PostMapping("/boardpage/insert")
     public String insertBoard(@ModelAttribute BoardDto boardDto) {
         boardService.insertBoard(boardDto);
-//        return "board/postwritepage";
         return "redirect:/boardpage";
     }
 }
