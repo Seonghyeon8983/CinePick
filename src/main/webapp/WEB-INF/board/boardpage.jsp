@@ -43,8 +43,6 @@
         border: none;
         font-size: 32px;
         outline: none;
-        margin-bottom: 30px;
-        margin-top: 20px;
     }
 
     .board-post-list-container {
@@ -83,6 +81,8 @@
 		width: 800px;
 		display: flex;
     	justify-content: flex-end;
+        margin-bottom: 30px;
+        margin-top: 20px;
 	}
 	
 	.btn-container button {
