@@ -6,25 +6,43 @@
 <head>
 <meta charset="UTF-8">
 <title>Movie Voting</title>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 <style>
+    body {
+        font-family: 'Jua';
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        height: 85vh;
+    }
 .main-container {
-	width: 80%;
-	margin: 0 auto;
-	padding: 20px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
+		width: 1200px;
+		height: 700px;
+        background-color: #d9d9d9;
+        border: 1px solid #838383;
+        border-radius: 5px;
+		display: flex;
+		flex-direction: row;
+        justify-content: center;
+        align-items: center;
 }
 
 .content-container {
 	display: flex;
 	justify-content: space-between;
+	padding: 20px;
 }
 
 .movies-container, .vote-container {
 	flex: 1;
 	padding: 20px;
+	background-color: #f0f0f0;
 	border: 1px solid #ddd;
 	border-radius: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .movie-info {
@@ -62,7 +80,7 @@ img {
 
 button {
 	padding: 10px;
-	background-color: #4CAF50;
+	background-color: #828282;
 	color: white;
 	border: none;
 	border-radius: 5px;
@@ -70,8 +88,9 @@ button {
 }
 
 #view-results {
-	margin-top: 20px;
-	background-color: #008CBA;
+	width: 200px;
+	margin-bottom: 5%;
+	background-color: #828282;
 	width: 100%;
 }
 
@@ -210,6 +229,7 @@ button {
 
 			<div class="vote-container">
 				<div id="vote-form-container">
+					<button id="view-results">결과 먼저 보기</button>
 					<form id="vote-form">
 						<div class="vote-option">
 							<label><input type="radio" name="movie"
@@ -226,7 +246,7 @@ button {
 						</div>
 					</form>
 
-					<button id="view-results">결과 먼저 보기</button>
+					
 				</div>
 
 				<div id="results-container" style="display: none;">

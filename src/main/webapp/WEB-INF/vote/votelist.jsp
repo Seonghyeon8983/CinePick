@@ -10,34 +10,76 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <style>
         body {
-            font-family: 'Jua';
-            background-color: #f4f4f4;
+	        font-family: 'Jua';
+	        background-color: #f0f0f0;
+	        margin: 0;
+	        padding: 0;
+	        display: flex;
+	        flex-direction: column;
+	        height: 90vh;
         }
         .main-container {
-            background-color: white;
-            margin: 20px auto;
-            width: 80%;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            overflow: hidden;
+	        width: 1200px;
+	        height: 700px;
+	        background-color: #d9d9d9;
+	        border: 1px solid #838383;
+	        border-radius: 5px;
+	        display: flex;
+	        flex-direction: column;
+	        align-items: center;
+	        padding: 10px;
         }
         .search-container {
-            background-color: #333;
-            padding: 20px;
-            text-align: center;
+	        width: 900px;
+	        height: 60px;
+	        background-color: #f0f0f0;
+	        border-radius: 10px;
+	        padding: 10px;
+	        border: none;
+	        font-size: 32px;
+        	outline: none;
+	        margin-bottom: 30px;
+	        margin-top: 20px;
         }
-        .search-input {
-            width: 70%;
-            padding: 10px;
-            border-radius: 20px;
-            border: none;
-        }
+        .container-line {
+		    width: 4px;
+		    height: 540px;
+		    background-color: #f0f0f0;
+		    margin: 0 10px;
+		}
+		.btn-container {
+			width: 800px;
+			display: flex;
+	    	justify-content: flex-end;
+		}
+		.btn-container button {
+			width: 100px;
+			height: 60px;
+			border: none;
+			border-radius: 10px;
+			margin-left: 10px;
+			cursor: pointer;
+		}
         .content-container {
+        	width: 1000px;	
+        	height: 600px;
             display: flex;
         }
+        .vote-title {
+        	display: flex;
+        	flex-direction: row;
+        	justify-content: space-between;
+        }
+        .vote-title button {
+        	height: 40px;
+        }
+        
         .vote-section {
             flex: 1;
             padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            margin: 10px;
         }
         .vote-item {
             background-color: #f9f9f9;
@@ -73,12 +115,13 @@
 
     <div class="main-container">
         <!-- 검색 섹션 -->
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="영화 검색...">
-        </div>
+        <div class="btn-container">
+	    	<input class="search-container" placeholder="검색" />
+		</div>
+        
 
         <div id="pollList"></div>
-
+        
         <!-- 콘텐츠 섹션 -->
         <div class="content-container">
             <!-- 박스오피스 기반 투표 목록 -->
@@ -86,22 +129,23 @@
                 <h2>박스오피스 투표</h2>
                 <div id="boxOfficePolls"></div> <!-- 여기에 API에서 받아온 박스오피스 투표가 출력됩니다 -->
             </div>
-
             <!-- 사용자 개인 투표 목록 -->
             <div class="vote-section">
+            <div class="vote-title">
                 <h2>사용자 개인 투표 목록</h2>
+		    <!-- "새로운 투표 만들기" 버튼 -->
+				<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newVoteModal">
+	            	새로운 투표
+	            </button>
+            </div>
                 <div id="userPolls"></div> <!-- 여기에 사용자 개인 투표 목록이 출력됩니다 -->
 
-                <!-- "새로운 투표 만들기" 버튼 -->
-                <div class="new-vote-button-container">
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newVoteModal">
-                        새로운 투표 만들기
-                    </button>
-                </div>
+                
             </div>
         </div>
         
-         <div class="modal fade" id="newVoteModal" tabindex="-1" aria-labelledby="newVoteModalLabel" aria-hidden="true">
+        
+        <div class="modal fade" id="newVoteModal" tabindex="-1" aria-labelledby="newVoteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
