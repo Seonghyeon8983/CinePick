@@ -8,7 +8,7 @@ import data.dto.CompDto;
 public interface CompMapper {
     void insertComp(CompDto dto);
     List <CompDto> getAllComp();
-    CompDto getCompById(int poll_id);
+    CompDto getCompById(int pollId);
     void updateComp(CompDto dto);
-    void deleteComp(int poll_id);
+    void deleteComp(int pollId);
 }
