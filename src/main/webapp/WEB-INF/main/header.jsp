@@ -3,36 +3,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style type="text/css">
+<style>
     header {
         background-color: #838383;
         font-weight: bold;
         font-size: 36pt;
-        color: white;
+        color: #f0f0f0;
         height: 120px;
         display: flex;
-        align-items: center; /* 세로 중앙 정렬 */
-        padding-left: 20px; /* 왼쪽 여백 추가 */
-        position: fixed; /* 상단 고정 */
+        align-items: center;
+        padding-left: 20px;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
     }
     a {
         text-decoration: none;
+        color: #f0f0f0;
     }
     body {
-    	background-color: #f0f0f0; /* 원하는 배경색 */
+        background-color: #f0f0f0;
         margin: 0;
-        padding-top: 120px; /* 헤더 높이만큼 여백 추가 */
+        padding-top: 120px;
         display: flex;
-        justify-content: center;  /* 가로 중앙 정렬 */
-        align-items: center;      /* 세로 중앙 정렬 */
-       /*  height: 100vh;            /* 화면 전체 높이 사용 */ */
+        justify-content: center;
+        align-items: center;
     }
 </style>
 </head>
 <body>
-    <header>Cinepick</header>
+    <header>
+        <a href="/">Cinepick</a>
+    </header>
 </body>
 </html>
