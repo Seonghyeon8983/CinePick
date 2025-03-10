@@ -5,11 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>CinePick - 영화 투표</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Jua';
             background-color: #f4f4f4;
         }
         .main-container {
@@ -56,12 +57,19 @@
             max-height: 150px;
             margin-top: 10px;
         }
+        a:link, a:visited {
+			color: black;
+			text-decoration: none;
+		}
+		a:hover {
+			color: hotpink;
+		}
     </style>
 </head>
 <body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <jsp:include page="../../layout/title.jsp"/>
+    <%@ include file="../main/header.jsp" %> 
 
     <div class="main-container">
         <!-- 검색 섹션 -->
@@ -217,5 +225,6 @@
             });
         </script>
     </div>
+    <%@ include file="../main/footer.jsp" %> 
 </body>
 </html>

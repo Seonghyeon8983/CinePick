@@ -177,6 +177,10 @@
 	    border-radius: 5px;
 	    margin-left: auto;
 	}
+	a {
+        text-decoration: none;
+        color: #f0f0f0;
+    }
 </style>
 </head>
 <body>
@@ -234,15 +238,34 @@
 		</div>
 	</div>
 
-	<div class="recommand-container">
-		<div class="recommand-container-wapper">
+	<div class="vote-container">
+		<div class="vote-container-wapper">
 			<div class="title">영화 투표</div>
 			<br>
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<div class="title">aaa</div>
-			<a href="/boardpage">
+			
+			<div class="title">
+				<a href="/votemovie?id=1&movie1id=3&movie2id=4" style="text-decoration: none; color: inherit;">
+					[미키 17] vs [콘클라베]
+				</a>
+			</div>
+			
+			<div class="title">
+				<a href="/votemovie?id=2&movie1id=4&movie2id=5" style="text-decoration: none; color: inherit;">
+					[콘클라베] vs [캡틴 아메리카 브레이브 뉴 월드]
+				</a>
+			</div>
+			<div class="title">
+				<a href="votemovie?id=3&movie1id=10&movie2id=7" style="text-decoration: none; color: inherit;">
+					[백수아파트] vs [보더랜드]
+				</a>
+			</div>
+
+			<div class="title">
+				<a href="/votemovie?id=4&movie1id=6&movie2id=8" style="text-decoration: none; color: inherit;">
+					[괜찮아 괜찮아...] vs [패딩턴 페루에 가다!]
+				</a>
+	    	</div>
+			<a href="/votelist">
 	        	<button type="button" class="btn-more">>> 더보기</button>
 	    	</a>
 		</div>

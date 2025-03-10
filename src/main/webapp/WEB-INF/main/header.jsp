@@ -18,7 +18,7 @@
         left: 0;
         width: 100%;
     }
-    a {
+    .main a {
         text-decoration: none;
         color: #f0f0f0;
     }
@@ -34,7 +34,9 @@
 </head>
 <body>
     <header>
-        <a href="/">Cinepick</a>
+    	<div class="main">
+        	<a href="/">Cinepick</a>
+        </div>
     </header>
 </body>
 </html>

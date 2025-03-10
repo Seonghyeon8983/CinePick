@@ -186,7 +186,7 @@ button {
 
 
 
-	<jsp:include page="../../layout/title.jsp" />
+	<%@ include file="../main/header.jsp" %> 
 
 	<div class="main-container">
 		<div class="content-container">
@@ -213,7 +213,7 @@ button {
 					<form id="vote-form">
 						<div class="vote-option">
 							<label><input type="radio" name="movie"
-								value="${movie1.movie_id}"> <span>"${movie1.title}"</span></label>
+								value="${movie1.movie_id}"> <span>${movie1.title}</span></label>
 						</div>
 
 						<div class="vote-option">
@@ -238,5 +238,6 @@ button {
 			</div>
 		</div>
 	</div>
+	<%@ include file="../main/footer.jsp" %> 
 </body>
 </html>
