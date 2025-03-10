@@ -1,0 +1,95 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.container {
+  display: flex;
+}
+.left-section, .right-section {
+  flex: 1;
+}
+.movie-info {
+  display: flex;
+  margin-bottom: 20px;
+}
+.movie-details {
+  margin-left: 20px;
+}
+img {
+  width: 200px;
+  height: auto;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="left-section">
+    <div class="movie-info">
+      <img src="movie1_image_url" alt="Movie 1">
+      <div class="movie-details">
+        <h2 id="movie1-title"></h2>
+        <p id="movie1-plot"></p>
+      </div>
+    </div>
+    <div class="movie-info">
+      <img src="movie2_image_url" alt="Movie 2">
+      <div class="movie-details">
+        <h2 id="movie2-title"></h2>
+        <p id="movie2-plot"></p>
+      </div>
+    </div>
+  </div>
+  <div class="right-section">
+    <h2>Vote for your favorite movie</h2>
+    <form id="vote-form">
+      <label><input type="radio" name="movie" value="movie1"> <span id="vote-movie1-title"></span></label>
+      <label><input type="radio" name="movie" value="movie2"> <span id="vote-movie2-title"></span></label>
+      <button type="submit">Vote</button>
+    </form>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+	  // API에서 데이터를 가져와 DB에 저장하는 로직 (서버 사이드에서 처리)
+	  
+	  // DB에서 영화 데이터 불러오기 (AJAX 요청 사용)
+	  fetch('/api/movies')
+	    .then(response => response.json())
+	    .then(movies => {
+	      // 영화 정보 표시
+	      document.getElementById('movie1-title').textContent = movies[0].title;
+	      document.getElementById('movie1-plot').textContent = movies[0].plot;
+	      document.getElementById('movie2-title').textContent = movies[1].title;
+	      document.getElementById('movie2-plot').textContent = movies[1].plot;
+	      
+	      // 투표 폼에 영화 제목 설정
+	      document.getElementById('vote-movie1-title').textContent = movies[0].title;
+	      document.getElementById('vote-movie2-title').textContent = movies[1].title;
+	    });
+	  
+	  // 투표 처리
+	  document.getElementById('vote-form').addEventListener('submit', (e) => {
+	    e.preventDefault();
+	    const selectedMovie = document.querySelector('input[name="movie"]:checked').value;
+	    // 투표 데이터를 서버로 전송 (AJAX 요청 사용)
+	    fetch('/api/vote', {
+	      method: 'POST',
+	      headers: {
+	        'Content-Type': 'application/json',
+	      },
+	      body: JSON.stringify({ movie: selectedMovie }),
+	    })
+	    .then(response => response.json())
+	    .then(result => {
+	      alert('Thank you for voting!');
+	    });
+	  });
+	});
+</script>
+</body>
+</html>

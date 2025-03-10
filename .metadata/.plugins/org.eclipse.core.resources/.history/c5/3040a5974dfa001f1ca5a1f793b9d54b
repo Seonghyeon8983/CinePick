@@ -1,0 +1,100 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Movie Voting</title>
+<style>
+.main-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+.content-container {
+  display: flex;
+  justify-content: space-between;
+}
+.movies-container, .vote-container {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.movie-info {
+  display: flex;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+.movie-details {
+  margin-left: 20px;
+}
+img {
+  width: 150px;
+  height: auto;
+}
+#vote-form {
+  display: flex;
+  flex-direction: column;
+}
+.vote-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.vote-option label {
+  margin-right: 10px;
+}
+button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#view-results {
+  margin-top: 20px;
+  background-color: #008CBA;
+}
+</style>
+</head>
+<body>
+<jsp:include page="../../layout/title.jsp"/>
+<div class="main-container">
+  <div class="content-container">
+    <div class="movies-container">
+      <div class="movie-info">
+        <img src="movie1_image_url" alt="Movie 1">
+        <div class="movie-details">
+          <h2 id="movie1-title"></h2>
+          <p id="movie1-plot"></p>
+        </div>
+      </div>
+      <div class="movie-info">
+        <img src="movie2_image_url" alt="Movie 2">
+        <div class="movie-details">
+          <h2 id="movie2-title"></h2>
+          <p id="movie2-plot"></p>
+        </div>
+      </div>
+    </div>
+    <div class="vote-container">
+      <form id="vote-form">
+ <div class="vote-option">
+          <label><input type="radio" name="movie" value="movie1"> <span id="vote-movie1-title"></span></label>
+       
+          <label><input type="radio" name="movie" value="movie2"> <span id="vote-movie2-title"></span></label>
+          <button type="submit">Vote</button>
+        </div>
+      </form>
+      <button id="view-results">결과 먼저 보기</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

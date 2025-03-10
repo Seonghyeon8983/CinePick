@@ -1,0 +1,13 @@
+package vote.controller;
+
+
+
+@Controller
+public class VoteListController {
+	@GetMapping("votelist")
+	public String govoteMovie() {
+		return "vote/votelist";
+	}
+	
+}
+

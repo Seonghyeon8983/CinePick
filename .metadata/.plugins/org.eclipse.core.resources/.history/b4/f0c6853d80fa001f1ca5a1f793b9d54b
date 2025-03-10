@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.BoardCommentMapper">
+    <insert id="insertBoardComment" parameterType="BoardCommentDto">
+        INSERT INTO CinePick_Board_Comments (post_id, user_id, content)
+        VALUES (#{postId}, #{userId}, #{content})
+    </insert>
+    
+    <select id="getCommentsByPostId" parameterType="int" resultType="BoardCommentDto">
+        SELECT * FROM CinePick_Board_Comments WHERE post_id = #{postId}
+    </select>
+    
+    <update id="updateBoardComment" parameterType="BoardCommentDto">
+        UPDATE CinePick_Board_Comments SET content = #{content}, updated_at = CURRENT_TIMESTAMP
+        WHERE comment_id = #{commentId}
+    </update>
+    
+    
+</mapper>

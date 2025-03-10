@@ -15,4 +15,6 @@ public class CompDto {
     private Timestamp created_at;
     private Timestamp updated_at;
     private String pollName;
+    private MovieDto movie1; // 첫 번째 영화 정보
+    private MovieDto movie2; // 두 번째 영화 정보
 }

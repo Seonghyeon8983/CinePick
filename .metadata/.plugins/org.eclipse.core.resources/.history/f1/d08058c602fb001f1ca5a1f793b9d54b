@@ -1,0 +1,49 @@
+package vote.controller;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import data.dto.CompDto;
+import data.service.CompService;
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+public class VoteListController {
+	final CompService compService;
+	
+	@GetMapping("votelist")
+	public String govoteMovie() {
+		return "vote/votelist";
+	}
+	
+	
+
+	
+	@GetMapping("/api/")
+	@ResponseBody
+	public List<CompDto> getAllCompNames() {
+	    List<CompDto> polls = compService.getAllCompNames();
+	    return polls != null ? polls : new ArrayList<>();
+	}
+
+	
+	
+	
+	
+
+}
+
+
+
+
+
+
+
+
+

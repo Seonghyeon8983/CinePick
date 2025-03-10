@@ -1,0 +1,9 @@
+package data.service;
+
+public class BoardCommentService {
+
+	public BoardCommentService() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,9 @@
+server:
+  port: 8090
+  
+#jsp setting
+spring:
+  mvc:
+    view:
+      prefix: /WEB_INF/
+	  suffix: .jsp

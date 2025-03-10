@@ -1,0 +1,117 @@
+package vote.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import data.dto.CompDto;
+import data.service.CompService;
+import data.service.MovieService;
+import lombok.RequiredArgsConstructor;
+
+//
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.GetMapping;
+//
+//@Controller
+//public class VoteListController {
+//	@GetMapping("votelist")
+//	public String govoteMovie() {
+//		return "vote/votelist";
+//	}
+//	
+//}
+//
+//
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.RequestParam;
+//
+//import data.dto.CompDto;
+//import data.dto.MovieDto;
+//import data.service.CompService;
+//import data.service.MovieService;
+//import lombok.RequiredArgsConstructor;
+//
+//@Controller
+//@RequiredArgsConstructor
+//public class VoteListController {
+//    private final CompService compService;
+//    private final MovieService movieService;
+//
+//    @GetMapping("/comparison/list")
+//    public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
+//        int perPage = 5; // 한 페이지당 출력할 비교투표의 개수
+//        int totalCount = compService.getAllComparisonPolls().size();
+//        int totalPage = (int) Math.ceil((double) totalCount / perPage);
+//        int startNum = (pageNum - 1) * perPage;
+//
+//        List<CompDto> compList = compService.getAllComparisonPolls().subList(startNum, Math.min(startNum + perPage, totalCount));
+//        List<String> pollTitles = new ArrayList<>();
+//
+//        for (CompDto comp : compList) {
+//            MovieDto movie1 = movieService.getMovieById(comp.getMovie1Id());
+//            MovieDto movie2 = movieService.getMovieById(comp.getMovie2Id());
+//            String pollTitle = movie1.getTitle() + " vs " + movie2.getTitle();
+//            pollTitles.add(pollTitle);
+//        }
+//
+//        model.addAttribute("totalCount", totalCount);
+//        model.addAttribute("compList", compList);
+//        model.addAttribute("pollTitles", pollTitles);
+//        model.addAttribute("pageNum", pageNum);
+//        model.addAttribute("totalPage", totalPage);
+//
+//        return "vote/votelist";
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@Controller
+@RequiredArgsConstructor
+public class VoteListController {
+    private final CompService compService;
+    private final MovieService movieService;
+
+    @GetMapping("/comparison/list")
+    @ResponseBody
+    public List<Map<String, Object>> getComparisonList() {
+        List<CompDto> compList = compService.getAllComparisonPolls();
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        for (CompDto comp : compList) {
+            Map<String, Object> pollInfo = new HashMap<>();
+            pollInfo.put("id", comp.getPollId());
+            pollInfo.put("movie1", movieService.getMovieById(comp.getMovie1Id()).getTitle());
+            pollInfo.put("movie2", movieService.getMovieById(comp.getMovie2Id()).getTitle());
+            result.add(pollInfo);
+        }
+
+        return "vote/votelist";
+    }
+}
+
+
+
+
