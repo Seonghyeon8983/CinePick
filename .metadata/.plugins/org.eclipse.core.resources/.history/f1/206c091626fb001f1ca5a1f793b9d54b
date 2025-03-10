@@ -1,0 +1,45 @@
+//package vote.controller;
+//
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.GetMapping;
+//
+//
+//@Controller
+//public class VoteMovieController {
+//	@GetMapping("votemovie")
+//	public String govoteMovie() {
+//		return "vote/votemovie";
+//	}
+//	
+//}
+
+
+package vote.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import data.dto.CompDto;
+import data.service.CompService;
+
+@RestController
+public class CompController {
+
+    private final CompService compService;
+
+    @Autowired
+    public CompController(CompService compService) {
+        this.compService = compService;
+    }
+
+    @GetMapping("/api/get-comp-dto")
+    public CompDto getCompDto(@RequestParam("id") int id) {
+        CompDto compDto = compService.getComparisonPollById(id);
+        // 영화 정보를 포함한 CompDto를 반환하기 위해 추가적인 처리가 필요합니다.
+        // 예를 들어, MovieService를 통해 영화 정보를 가져와 CompDto에 설정합니다.
+        return compDto;
+    }
+}
+

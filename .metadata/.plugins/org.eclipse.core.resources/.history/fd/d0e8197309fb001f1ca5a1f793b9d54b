@@ -1,0 +1,29 @@
+package data.service;
+
+import java.util.List;
+import org.springframework.stereotype.Service;
+import data.dto.BoardCommentDto;
+import data.mapper.BoardCommentMapper;
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public class BoardCommentService {
+    private final BoardCommentMapper boardCommentMapper;
+
+    public void insertBoardComment(BoardCommentDto dto) {
+        boardCommentMapper.insertBoardComment(dto);
+    }
+
+    public List<BoardCommentDto> getCommentsByPostId(int postId) {
+        return boardCommentMapper.getCommentsByPostId(postId);
+    }
+
+    public void updateBoardComment(BoardCommentDto dto) {
+        boardCommentMapper.updateBoardComment(dto);
+    }
+
+    public void deleteBoardComment(int comment_id) {
+        boardCommentMapper.deleteBoardComment(comment_id);
+    }
+}

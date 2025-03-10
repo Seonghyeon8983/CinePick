@@ -1,0 +1,23 @@
+package vote.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import data.service.VoteService;
+import data.service.MovieService;
+import data.dto.MovieDto;
+import data.dto.VoteDto;
+import lombok.AllArgsConstructor;
+import java.util.List;
+
+@Controller
+public class VoteListController {
+	@GetMapping("votelist")
+	public String govoteMovie() {
+		return "vote/votemovie";
+	}
+	
+}
+}

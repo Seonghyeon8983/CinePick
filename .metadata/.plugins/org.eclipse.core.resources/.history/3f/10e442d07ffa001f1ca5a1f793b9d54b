@@ -1,0 +1,33 @@
+package data.service;
+
+import java.util.List;
+import org.springframework.stereotype.Service;
+import data.dto.CompDto;
+import data.mapper.CompMapper;
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public class ComparisonPollService {
+    private final ComparisonPollMapper comparisonPollMapper;
+
+    public void insertComparisonPoll(ComparisonPollDto dto) {
+        comparisonPollMapper.insertComparisonPoll(dto);
+    }
+
+    public List<ComparisonPollDto> getAllComparisonPolls() {
+        return comparisonPollMapper.getAllComparisonPolls();
+    }
+
+    public ComparisonPollDto getComparisonPollById(int pollId) {
+        return comparisonPollMapper.getComparisonPollById(pollId);
+    }
+
+    public void updateComparisonPoll(ComparisonPollDto dto) {
+        comparisonPollMapper.updateComparisonPoll(dto);
+    }
+
+    public void deleteComparisonPoll(int pollId) {
+        comparisonPollMapper.deleteComparisonPoll(pollId);
+    }
+}

@@ -1,0 +1,61 @@
+//package vote.controller;
+//
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.GetMapping;
+//
+//
+//@Controller
+//public class VoteMovieController {
+//	@GetMapping("votemovie")
+//	public String govoteMovie() {
+//		return "vote/votemovie";
+//	}
+//	
+//}
+package vote.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import data.dto.CompDto;
+import data.dto.MovieDto;
+import data.service.CompService;
+import data.service.MovieService;\
+
+@RestController
+public class VoteMovieController {
+
+    private final CompService compService;
+    private final MovieService movieService;
+
+    @Autowired
+    public VoteMovieController(CompService compService, MovieService movieService) {
+        this.compService = compService;
+        this.movieService = movieService;
+    }
+
+    @GetMapping("/api/get-comp-dto")
+    public ResponseEntity<CompDto> getCompDto(@RequestParam("id") int id) {
+        // 투표 정보 조회
+        CompDto compDto = compService.getComparisonPollById(id);
+        if (compDto == null) {
+            return ResponseEntity.notFound().build(); // 투표 ID가 없을 경우 404 반환
+        }
+
+        // 영화 정보 추가
+        MovieDto movie1 = movieService.getMovieById(compDto.getMovie_1_id());
+        MovieDto movie2 = movieService.getMovieById(compDto.getMovie_2_id());
+
+        if (movie1 != null && movie2 != null) {
+            compDto.setMovie1(movie1); // 첫 번째 영화 정보 설정
+            compDto.setMovie2(movie2); // 두 번째 영화 정보 설정
+        } else {
+            return ResponseEntity.status(404).body(null); // 영화 정보가 없을 경우 404 반환
+        }
+
+        return ResponseEntity.ok(compDto); // 성공적으로 CompDto 반환
+    }
+}
