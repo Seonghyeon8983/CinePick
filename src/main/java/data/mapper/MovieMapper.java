@@ -13,4 +13,5 @@ public interface MovieMapper {
     public MovieDto getMovieById(int movie_id);
     public void updateMovie(MovieDto dto);
     public void deleteMovie(int movie_id);
+    public MovieDto getMovieByTitle(String title);
 }
